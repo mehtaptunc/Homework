@@ -4,7 +4,7 @@ from webdriver_manager.chrome import ChromeDriverManager
 from time import sleep
 import pytest
 
-class Test_homework:
+class Test_saucedemo:
 #Kullanıcı adı ve şifre alanları boş geçildiğinde uyarı mesajı olarak 
 # "Epic sadface: Username is required" gösterilmelidir.
     def test_username_password_empty(self):
@@ -90,7 +90,7 @@ class Test_homework:
         print(f"TEST SONUCU: {testResult}")
 
 
-# testClass = test_homework()
+# testClass = test_saucedemo()
 # testClass.test_username_password_empty()
 # testClass.test_password_empty()
 # testClass.test_error()
