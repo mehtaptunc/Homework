@@ -30,6 +30,11 @@ PyTest belgelerine göre, şu anda PyTest'te 100'den fazla decorator bulunmaktad
 
 Örneğin, @pytest.mark.config decoratoru, testlere sağlanan konfigürasyon verilerini kontrol eder.
 
+
+
+
+
+
 4-Testleri raporlayan decoratorler: Bu decoratorler, testlerin sonuçlarını raporlar. 
 
 Örneğin, @pytest.mark.describe decoratoru, testleri gruplar ve @pytest.mark.tag decoratoru, testlere etiketler ekler.
@@ -45,7 +50,7 @@ Decoratorleri kullanmanın bazı örnekleri şunlardır:
 
 Bu decorator, testi atlar. Örneğin, aşağıdaki kod, yalnızca belirli bir ortamda çalışan bir testi atlar:
 
-Python
+
 @pytest.mark.skipif(os.environ.get("ENV") != "prod", reason="Bu test yalnızca üretim ortamında çalışır")
 def test_production(self):
    
@@ -60,7 +65,7 @@ def test_production(self):
 
 Bu decorator, test fonksiyonunu farklı girdilerle çalıştırır. Örneğin, aşağıdaki kod, username ve password değişkenlerine farklı değerler atayarak test_login() testini çalıştırır:
 
-Python
+
 @pytest.mark.parametrize("username, password", [("kullanıcıadı", "parola"), ("başka_kullanıcı", "başka_parola")])
 def test_login(self, username, password):
 
