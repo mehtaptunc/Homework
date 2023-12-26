@@ -4,7 +4,9 @@ from webdriver_manager.chrome import ChromeDriverManager
 from time import sleep
 from selenium.webdriver.support.wait import WebDriverWait #ilgili driverı bekleten yapı
 from selenium.webdriver.support import expected_conditions as ec #beklenen koşullar
+from constants import globalConstants as c
 import pytest
+import openpyxl
 
      #Kullandığımız SauceDemo sitesinde kendi belirlediğiniz en az "3" test case daha yazınız.
      #En az 1 testiniz parametrize fonksiyonu ile en az 3 farklı veriyle test edilmelidir.
@@ -18,13 +20,27 @@ class Test_DemoClass:
     
     def setup_method(self): #her test başlangıcında çalışacak fonksiyon
         self.driver = webdriver.Chrome()
-        self.driver.get("https://www.saucedemo.com")
+        self.driver.get(c.BASE_URL)
         self.driver.maximize_window() 
           
 
     def teardown_method(self): # her testinin bitiminde çalışacak fonksiyon
         self.driver.quit()
     
+
+    def getData():
+        excel=openpyxl.load_workbook(c.test_continue)
+        sheet=excel["Sayfa1"] #hangi sayfada çalıştığımızı gösteriyor
+        rows =sheet.max_row #kaçıncı satıra kadar veri var?
+        data =[]
+        
+        for i in range(2,rows+1):
+            firsname = sheet.cell(i,1).value
+            lastname = sheet.cell(i,2).value
+            postalcode = sheet.cell(i,3).value
+            data.append((firsname,lastname,postalcode))
+        
+        return data
     
     
     #Case 1: (Açılan menü sonucu çıkan sayfada olduğumuzun kontrolü
@@ -35,11 +51,11 @@ class Test_DemoClass:
     #The world relies on your code. Test on thousands of different device, browser, and OS configurations–anywhere, any time."
         
     def test_openmenu(self):    
-        usernameInput = WebDriverWait(self.driver,5).until(ec.visibility_of_element_located((By.ID , "user-name")))
+        usernameInput = WebDriverWait(self.driver,5).until(ec.visibility_of_element_located((By.ID , c.USERNAME_ID)))
         usernameInput.send_keys("standard_user")
-        passwordInput =WebDriverWait(self.driver,5).until(ec.visibility_of_element_located((By.ID , "password")))
+        passwordInput =WebDriverWait(self.driver,5).until(ec.visibility_of_element_located((By.ID , c.PASSWORD_ID)))
         passwordInput.send_keys("secret_sauce")
-        loginButton = self.driver.find_element(By.ID ,"login-button")
+        loginButton = self.driver.find_element(By.ID ,c.LOGINBUTTON_ID)
         loginButton.click() 
         openMenu=WebDriverWait(self.driver,5).until(ec.visibility_of_element_located((By.ID ,"react-burger-menu-btn")))
         openMenu.click()
@@ -60,25 +76,28 @@ class Test_DemoClass:
      #Adım4: Firstname,lastname ve postal code girişlerini yap
      #Adım5: Continue butonuna tıkla
      #Beklenen Sonuç: (https://www.saucedemo.com/checkout-step-two.html ) bu URL de olduğunu görmelisin.      
-
     
-    @pytest.mark.parametrize("firstname,lastname,postalcode",[("Mehtap","Tunç","34102"),("Tunç","Mehtap","12358"),("45556","Tunç","75545")])
+    
+    
+    
+    
+    @pytest.mark.parametrize("firstname,lastname,postalcode",getData())
     def test_continue(self,firstname,lastname,postalcode): 
-        usernameInput = WebDriverWait(self.driver,5).until(ec.visibility_of_element_located((By.ID , "user-name")))
+        usernameInput = WebDriverWait(self.driver,5).until(ec.visibility_of_element_located((By.ID ,c.USERNAME_ID)))
         usernameInput.send_keys("standard_user")
-        passwordInput =WebDriverWait(self.driver,5).until(ec.visibility_of_element_located((By.ID , "password")))
+        passwordInput =WebDriverWait(self.driver,5).until(ec.visibility_of_element_located((By.ID , c.PASSWORD_ID)))
         passwordInput.send_keys("secret_sauce")
-        loginButton = self.driver.find_element(By.ID ,"login-button")
+        loginButton = self.driver.find_element(By.ID ,c.LOGINBUTTON_ID)
         loginButton.click() 
         shoppingCart=WebDriverWait(self.driver,5).until(ec.visibility_of_element_located((By.XPATH,"//*[@id='shopping_cart_container']/a")))
         shoppingCart.click()
-        checkOut=WebDriverWait(self.driver,5).until(ec.visibility_of_element_located((By.ID,"checkout")))
+        checkOut=WebDriverWait(self.driver,5).until(ec.visibility_of_element_located((By.ID,c.CHECKOUTBUTTON_ID)))
         checkOut.click()
-        firstName=WebDriverWait(self.driver,5).until(ec.visibility_of_element_located((By.ID,"first-name")))
+        firstName=WebDriverWait(self.driver,5).until(ec.visibility_of_element_located((By.ID,c.FIRSTNAME_ID)))
         firstName.send_keys(firstname)
-        lastName=WebDriverWait(self.driver,5).until(ec.visibility_of_element_located((By.ID,"last-name")))
+        lastName=WebDriverWait(self.driver,5).until(ec.visibility_of_element_located((By.ID,c.LASTNAME_ID)))
         lastName.send_keys(lastname)
-        postalCode=WebDriverWait(self.driver,5).until(ec.visibility_of_element_located((By.ID,"postal-code")))
+        postalCode=WebDriverWait(self.driver,5).until(ec.visibility_of_element_located((By.ID,c.POSTALCODE_ID)))
         postalCode.send_keys(postalcode)
         ctnButton =WebDriverWait(self.driver,5).until(ec.visibility_of_element_located((By.XPATH,"//*[@id='continue']")))
         ctnButton.click()
@@ -101,21 +120,21 @@ class Test_DemoClass:
      #Beklenen Sonuç: "Thank you for your order!"sayfanın ortasında görünmelidir.        
     def test_thankyou_page(self):
             
-        usernameInput = WebDriverWait(self.driver,5).until(ec.visibility_of_element_located((By.ID , "user-name")))
+        usernameInput = WebDriverWait(self.driver,5).until(ec.visibility_of_element_located((By.ID , c.USERNAME_ID)))
         usernameInput.send_keys("standard_user")
-        passwordInput =WebDriverWait(self.driver,5).until(ec.visibility_of_element_located((By.ID , "password")))
+        passwordInput =WebDriverWait(self.driver,5).until(ec.visibility_of_element_located((By.ID , c.PASSWORD_ID)))
         passwordInput.send_keys("secret_sauce")
         loginButton = self.driver.find_element(By.ID ,"login-button")
         loginButton.click() 
         shoppingCart=WebDriverWait(self.driver,5).until(ec.visibility_of_element_located((By.XPATH,"//*[@id='shopping_cart_container']/a")))
         shoppingCart.click()
-        checkOut=WebDriverWait(self.driver,5).until(ec.visibility_of_element_located((By.ID,"checkout")))
+        checkOut=WebDriverWait(self.driver,5).until(ec.visibility_of_element_located((By.ID,c.CHECKOUTBUTTON_ID)))
         checkOut.click()
-        firstName=WebDriverWait(self.driver,5).until(ec.visibility_of_element_located((By.ID,"first-name")))
+        firstName=WebDriverWait(self.driver,5).until(ec.visibility_of_element_located((By.ID,c.FIRSTNAME_ID)))
         firstName.send_keys("Mehtap")
-        lastName=WebDriverWait(self.driver,5).until(ec.visibility_of_element_located((By.ID,"last-name")))
+        lastName=WebDriverWait(self.driver,5).until(ec.visibility_of_element_located((By.ID,c.FIRSTNAME_ID)))
         lastName.send_keys("Tunç")
-        postalCode=WebDriverWait(self.driver,5).until(ec.visibility_of_element_located((By.ID,"postal-code")))
+        postalCode=WebDriverWait(self.driver,5).until(ec.visibility_of_element_located((By.ID,c.POSTALCODE_ID)))
         postalCode.send_keys("77777")
         ctnButton =WebDriverWait(self.driver,5).until(ec.visibility_of_element_located((By.XPATH,"//*[@id='continue']")))
         ctnButton.click()  
