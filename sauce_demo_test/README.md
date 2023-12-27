@@ -1,4 +1,8 @@
-Pytest-Decarators
+## Pytest-Decarators
+
+
+## ![image](https://github.com/mehtaptunc/Selenium-SauceDemo/assets/134071818/c00ad4d8-39e3-4356-b911-147eb45bf47b)
+
 
 PyTest belgelerine göre, şu anda PyTest'te 100'den fazla decorator bulunmaktadır. Bu decoratorler, aşağıdaki kategorilere ayrılabilir:
 
@@ -37,7 +41,7 @@ PyTest belgelerine göre, şu anda PyTest'te 100'den fazla decorator bulunmaktad
 
 4-Testleri raporlayan decoratorler: Bu decoratorler, testlerin sonuçlarını raporlar. 
 
-Örneğin, @pytest.mark.describe decoratoru, testleri gruplar ve @pytest.mark.tag decoratoru, testlere etiketler ekler.
+Örneğin, @pytest.mark.describe decoratoru, testleri gruplar ve  @pytest.mark.tag decoratoru, testlere etiketler ekler.
 
 
 
@@ -46,7 +50,10 @@ PyTest belgelerine göre, şu anda PyTest'te 100'den fazla decorator bulunmaktad
 
 Decoratorleri kullanmanın bazı örnekleri şunlardır:
 
-@pytest.mark.skip
+## @pytest.mark.skip
+
+![pytest_mark skip](https://github.com/mehtaptunc/Selenium-SauceDemo/assets/134071818/3cdef1d7-2e0b-48f9-bfd3-ecffd5000c09)
+
 
 Bu decorator, testi atlar. Örneğin, aşağıdaki kod, yalnızca belirli bir ortamda çalışan bir testi atlar:
 
@@ -61,7 +68,7 @@ def test_production(self):
 
 
 
-@pytest.mark.parametrize
+## @pytest.mark.parametrize
 
 Bu decorator, test fonksiyonunu farklı girdilerle çalıştırır. Örneğin, aşağıdaki kod, username ve password değişkenlerine farklı değerler atayarak test_login() testini çalıştırır:
 
@@ -72,13 +79,14 @@ def test_login(self, username, password):
  
 
 
+![pytest_mark parametrize](https://github.com/mehtaptunc/Selenium-SauceDemo/assets/134071818/026d5b6d-077e-4459-a836-77c90b7edb3d)
 
 
 
 
 
 
-@pytest.mark.xfail
+## @pytest.mark.xfail
 
 Bu decorator, testin başarısız olmasını bekler. Örneğin, aşağıdaki kod, henüz tamamlanmamış bir testi işaretler:
 
@@ -95,7 +103,11 @@ def test_not_implemented(self):
 
 
 
-Decoratorleri kullanmanın bazı avantajları şunlardır:
+
+
+
+
+## Decoratorleri kullanmanın bazı avantajları şunlardır:
 
 -Testleri daha okunaklı ve yönetilebilir hale getirirler.
 
