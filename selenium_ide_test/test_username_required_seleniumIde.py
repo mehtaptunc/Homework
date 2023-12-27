@@ -11,7 +11,7 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 from constants import globalConstants as c
 
-class TestTestusernamerequired():
+class Test_Testusernamerequired():
   def setup_method(self, method):
     self.driver = webdriver.Chrome()
     self.vars = {}
@@ -20,7 +20,7 @@ class TestTestusernamerequired():
     self.driver.quit()
   
   def test_testusernamerequired(self):
-    self.driver.get(c.BASE_URL)
+    self.driver.get("https://www.saucedemo.com")
     self.driver.set_window_size(1552, 840)
     WebDriverWait(self.driver, ).until(expected_conditions.visibility_of_element_located((By.CSS_SELECTOR, "*[data-test=\"username\"]")))
     self.driver.find_element(By.CSS_SELECTOR, "*[data-test=\"username\"]").click()

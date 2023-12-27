@@ -10,7 +10,7 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 
-class Test_Testpasswordrequired():
+class Test_Testopenmenuseleniumde():
   def setup_method(self, method):
     self.driver = webdriver.Chrome()
     self.vars = {}
@@ -18,13 +18,16 @@ class Test_Testpasswordrequired():
   def teardown_method(self, method):
     self.driver.quit()
   
-  def test_testpasswordrequired(self):
+  def test_testopenmenu(self):
     self.driver.get("https://www.saucedemo.com/")
     self.driver.set_window_size(1552, 840)
     self.driver.find_element(By.ID, "user-name").click()
-    self.driver.find_element(By.ID, "user-name").send_keys("Mehtap")
+    self.driver.find_element(By.ID, "user-name").send_keys("standard_user")
     self.driver.find_element(By.ID, "password").click()
+    self.driver.find_element(By.ID, "password").send_keys("secret_sauce")
     self.driver.find_element(By.ID, "login-button").click()
-    assert self.driver.find_element(By.XPATH, "//div[@id=\'login_button_container\']/div/form/div[3]/h3").text == "Epic sadface: Password is required"
+    self.driver.find_element(By.ID, "react-burger-menu-btn").click()
+    self.driver.find_element(By.ID, "about_sidebar_link").click()
+    assert self.driver.find_element(By.CSS_SELECTOR, ".css-sere2z").text == "The world relies on your code. Test on thousands of different device, browser, and OS configurations–anywhere, any time."
     self.driver.close()
   
