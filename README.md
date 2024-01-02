@@ -12,3 +12,11 @@
 ## password_locked_out_user  testinin seleniumIDE de başarılı test geçişi
 
 ![test_password_required](https://github.com/mehtaptunc/Selenium-SauceDemo/assets/134071818/9f9475aa-f8c4-44d2-a54b-bd52662c515d)
+
+## test_continue  testinin seleniumIDE de başarılı test geçişi
+
+![test_continue](https://github.com/mehtaptunc/Selenium-SauceDemo/assets/134071818/2942e1c9-ed6f-495c-8117-203152d00209)
+
+## test_testthankyoupage  testinin seleniumIDE de başarılı test geçişi
+
+![test_thankyou_page](https://github.com/mehtaptunc/Selenium-SauceDemo/assets/134071818/312811af-3006-4337-90c4-c5d96e1f6140)
